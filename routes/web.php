@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\LikeController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,4 +28,14 @@ Route::post('/profileUp/{id}', 'ProfileController@update');
 Route::post('/postUpload', 'PostController@store');
 Route::get('/posts', 'PostController@index');
 Route::get('/ownposts/{id}', 'PostController@Userindex');
+
 Route::post('/postUpdate/{id}', 'PostController@Update');
+Route::delete('/delpost/{id}', 'PostController@remove');
+Route::delete('/delLike/{id}', 'LikeController@remove');
+Route::post('/addLike/{id}', 'LikeController@store');
+Route::post('/upLike/{id}', 'LikeController@update');
+Route::get('/Like/{id}', 'LikeController@Likes');
+Route::post('/comment/{id}', 'CommentController@store');
+Route::delete('/comment/{id}', 'CommentController@remove');
+Route::post('/commentUp/{id}', 'CommentController@update');
+Route::get('/comment/{id}', 'CommentController@index');

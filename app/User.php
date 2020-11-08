@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    public $with = ['profile', 'likes', 'dislikes', 'post', 'comment'];
     /**
      * The attributes that are mass assignable.
      *
@@ -43,5 +43,17 @@ class User extends Authenticatable
     public function post()
     {
         return $this->hasMany('App\Post');
+    }
+    public function likes()
+    {
+        return $this->hasMany('App\Like')->where('status', true);
+    }
+    public function dislikes()
+    {
+        return $this->hasMany('App\Like')->where('status', false);
+    }
+    public function comment()
+    {
+        return $this->hasMany('App\Comment');
     }
 }

@@ -66,83 +66,23 @@
         <p class="lead">{{ post.description }}</p>
 
         <hr />
+        <small
+          ><span
+            ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i
+            >{{ post.likes.length }}</span
+          >
+          <span
+            ><i class="fa fa-thumbs-o-down" aria-hidden="true"></i
+            >{{ post.dislikes.length }}</span
+          >
+          <span
+            ><i class="fa fa-comments" aria-hidden="true"></i
+            >{{ post.comment.length }}</span
+          >
+        </small>
+        <like :id="post.id" :admin="user2"></like>
 
-        <!-- Comments Form -->
-        <div class="card my-4">
-          <h5 class="card-header">Leave a Comment:</h5>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Single Comment -->
-        <div class="media mb-4">
-          <img
-            class="d-flex mr-3 rounded-circle"
-            src="http://placehold.it/50x50"
-            alt=""
-          />
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </div>
-        </div>
-
-        <!-- Comment with nested comments -->
-        <div class="media mb-4">
-          <img
-            class="d-flex mr-3 rounded-circle"
-            src="http://placehold.it/50x50"
-            alt=""
-          />
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-            <div class="media mt-4">
-              <img
-                class="d-flex mr-3 rounded-circle"
-                src="http://placehold.it/50x50"
-                alt=""
-              />
-              <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-                vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                nisi vulputate fringilla. Donec lacinia congue felis in
-                faucibus.
-              </div>
-            </div>
-
-            <div class="media mt-4">
-              <img
-                class="d-flex mr-3 rounded-circle"
-                src="http://placehold.it/50x50"
-                alt=""
-              />
-              <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-                vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                nisi vulputate fringilla. Donec lacinia congue felis in
-                faucibus.
-              </div>
-            </div>
-          </div>
-        </div>
+        <comment :post="post" :admin="user"></comment>
       </div>
       <div v-else>
         <h1 class="mt-4">{{ post.postName }}</h1>
@@ -201,90 +141,36 @@
         <p class="lead">{{ post.description }}</p>
 
         <hr />
+        <small
+          ><span
+            ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i
+            >{{ post.likes.length }}</span
+          >
+          <span
+            ><i class="fa fa-thumbs-o-down" aria-hidden="true"></i
+            >{{ post.dislikes.length }}</span
+          >
+          <span
+            ><i class="fa fa-comments" aria-hidden="true"></i
+            >{{ post.comment.length }}</span
+          >
+        </small>
+        <like :id="post.id" :admin="user2"></like>
 
-        <!-- Comments Form -->
-        <div class="card my-4">
-          <h5 class="card-header">Leave a Comment:</h5>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Single Comment -->
-        <div class="media mb-4">
-          <img
-            class="d-flex mr-3 rounded-circle"
-            src="http://placehold.it/50x50"
-            alt=""
-          />
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </div>
-        </div>
-
-        <!-- Comment with nested comments -->
-        <div class="media mb-4">
-          <img
-            class="d-flex mr-3 rounded-circle"
-            src="http://placehold.it/50x50"
-            alt=""
-          />
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-            <div class="media mt-4">
-              <img
-                class="d-flex mr-3 rounded-circle"
-                src="http://placehold.it/50x50"
-                alt=""
-              />
-              <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-                vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                nisi vulputate fringilla. Donec lacinia congue felis in
-                faucibus.
-              </div>
-            </div>
-
-            <div class="media mt-4">
-              <img
-                class="d-flex mr-3 rounded-circle"
-                src="http://placehold.it/50x50"
-                alt=""
-              />
-              <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-                vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                nisi vulputate fringilla. Donec lacinia congue felis in
-                faucibus.
-              </div>
-            </div>
-          </div>
-        </div>
+        <comment :post="post" :admin="user"></comment>
       </div>
     </div>
   </div>
 </template>
 <script>
+import Like from "./like";
+import comment from "./CommentForProfile";
 export default {
   props: ["user", "user2"],
+  components: {
+    Like,
+    comment,
+  },
   data() {
     return {
       posts: [],
