@@ -113,7 +113,10 @@
   </div>
 </template>
 <script>
+import { bus } from "../app";
 export default {
+  watch: {},
+  created() {},
   props: ["user"],
   data() {
     return {
@@ -122,6 +125,7 @@ export default {
       file: [],
       image: "",
       newPath: "../",
+      // NewUploadPost: [],
     };
   },
   methods: {
@@ -153,13 +157,15 @@ export default {
         .post("/postUpload", this.file)
         .then((response) => {
           $("#add_post").modal("hide");
-
+          // this.NewUploadPost = response.data.Newpost;
+          //this.$emit("newUpload", this.NewUploadPost);
           this.$swal(
             "posted!",
             "Your Post Has been Successfully Posted.",
             "success"
           );
-          location.reload();
+          bus.$emit("postUpload", "uploaded");
+          $("#add_post").val(null).trigger("change");
         })
         .catch((error) => {
           this.error = error.response.data.message;

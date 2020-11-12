@@ -36,7 +36,7 @@
       </div>
       <button
         class="btn btn-link"
-        v-if="admin || post.user"
+        v-if="admin.id == comment.user.id || admin.id == post.user"
         @click="delcomment(comment.id)"
       >
         Delete
@@ -56,6 +56,7 @@ export default {
       newOne: "",
       commentID: "",
       avatar: "../",
+      commentStatus: [],
     };
   },
   mounted() {
@@ -75,10 +76,14 @@ export default {
     },
     commentPost(newOne) {
       this.newComment.comment = newOne;
+      console.log(this.post);
       axios
         .post("/comment/" + this.post.id, this.newComment)
         .then((response) => {
           this.getComment();
+          this.commentStatus = response.data.message;
+
+          this.$emit("NewcommentUpdate", this.commentStatus);
         })
         .catch((error) => {
           this.error = error.response.data.message;
@@ -89,6 +94,9 @@ export default {
         .delete("/comment/" + commentID)
         .then((response) => {
           this.getComment();
+          this.commentStatus = response.data.message;
+
+          this.$emit("NewcommentUpdate", this.commentStatus);
         })
         .catch((error) => {
           this.error = error.response.data.message;

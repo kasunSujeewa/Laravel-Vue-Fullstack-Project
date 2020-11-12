@@ -9,70 +9,73 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    // public function store(Request $request)
-    // {
-    //     if ($request->hasFile('image')) {
-    //         $imagename = $request->image->getClientOriginalName();
-    //         $request->image->storeAs('public', $imagename);
-    //         $post = new Post;
-    //         $post->postName = $request->post_name;
-    //         $post->description = $request->description;
-    //         $post->image = $imagename;
-    //         $post->user_id = Auth::user()->id;
-    //         $post->save();
-    //     } else {
-    //         $post = new Post;
-    //         $post->postName = $request->post_name;
-    //         $post->description = $request->description;
+    public function store(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $imagename = $request->image->getClientOriginalName();
+            $request->image->storeAs('public', $imagename);
+            $post = new Post;
+            $post->postName = $request->post_name;
+            $post->description = $request->description;
+            $post->image = $imagename;
+            $post->user_id = Auth::user()->id;
+            $post->save();
+        } else {
+            $post = new Post;
+            $post->postName = $request->post_name;
+            $post->description = $request->description;
 
-    //         $post->user_id = Auth::user()->id;
-    //         $post->save();
-    //     }
-    //     return Post::all();
-    // }
+            $post->user_id = Auth::user()->id;
+            $post->save();
+        }
+        return Post::all();
+    }
     public function index()
     {
-        $post = Post::orderBy('created_at', 'desc')->get();
+        $post = Post::with(['likes', 'dislikes', 'user', 'comment'])->orderBy('created_at', 'desc')->get();
 
 
 
         return response()->json(['post' => $post]);
     }
-    // public function Userindex($id)
-    // {
-    //     $ownPost = Post::orderBy('created_at', 'desc')->where('user_id', $id)->get();
+    public function Userindex($id)
+    {
+        $ownPost = Post::with(['likes', 'dislikes', 'user', 'comment'])->orderBy('created_at', 'desc')->where('user_id', $id)->get();
 
-    //     return response()->json(['ownPost' => $ownPost]);
-    // }
-    // public function Update(Request $request, $id)
-    // {
-    //     if ($request->hasFile('image')) {
-    //         $post = Post::find($id);
-    //         $imagename = $request->image->getClientOriginalName();
-    //         $request->image->storeAs('public', $imagename);
+        return response()->json(['ownPost' => $ownPost]);
+    }
+    public function Update(Request $request, $id)
+    {
+        if ($request->hasFile('image')) {
+            $post = Post::find($id);
+            $imagename = $request->image->getClientOriginalName();
+            $request->image->storeAs('public', $imagename);
 
-    //         $post->postName = $request->post_name;
-    //         $post->description = $request->description;
-    //         $post->image = $imagename;
-    //         $post->user_id = Auth::user()->id;
-    //         $post->save();
-    //     } else {
-    //         $post = Post::find($id);
-    //         $post->postName = $request->post_name;
-    //         $post->description = $request->description;
+            $post->postName = $request->post_name;
+            $post->description = $request->description;
+            $post->image = $imagename;
+            $post->user_id = Auth::user()->id;
+            $post->save();
+        } else {
+            $post = Post::find($id);
+            $post->postName = $request->post_name;
+            $post->description = $request->description;
 
-    //         $post->user_id = Auth::user()->id;
-    //         $post->save();
-    //     }
-    // }
-    // public function remove($id)
-    // {
-    //     $post = Post::find($id);
-    //     $post->delete();
-    // }
-    // public function show($id)
-    // {
-    //     $post = Post::find($id);
-    //     return view('SinglePost')->with('post', $post);
-    // }
+            $post->user_id = Auth::user()->id;
+            $post->save();
+        }
+    }
+    public function remove($id)
+    {
+        $post = Post::find($id);
+        $post->comment()->forceDelete();
+        $post->likes()->forceDelete();
+        $post->dislikes()->forceDelete();
+        $post->delete();
+    }
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('SinglePost')->with('post', $post);
+    }
 }

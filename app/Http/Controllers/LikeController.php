@@ -20,18 +20,20 @@ class LikeController extends Controller
         $like->user_id = Auth::user()->id;
         $like->status = $request->status;
         $like->save();
-        return response()->json(['like' => $like]);
+        return response()->json(['like' => $like, 'message' => "succesful reacted"]);
     }
     public function remove($id)
     {
         $like = Like::where('post_id', $id)->where('user_id', Auth::user()->id)->first();
         $like->delete();
+        return response()->json(['message' => "succesful reacted"]);
     }
     public function update(Request $request, $id)
     {
         $like = Like::where('post_id', $id)->where('user_id', Auth::user()->id)->first();
         $like->status = $request->status;
         $like->save();
+        return response()->json(['message' => "succesful reacted"]);
     }
     public function Likes($id)
     {

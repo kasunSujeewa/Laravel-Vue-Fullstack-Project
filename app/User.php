@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    public $with = ['profile', 'likes', 'dislikes', 'post', 'comment'];
+
     /**
      * The attributes that are mass assignable.
      *

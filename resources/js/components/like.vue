@@ -62,6 +62,7 @@ export default {
       reactIt: {
         status: "",
       },
+      situation: [],
     };
   },
   mounted() {
@@ -83,6 +84,8 @@ export default {
         .then((response) => {
           //console.log("liked");
           this.getLike();
+          this.situation = response.data.message;
+          this.$emit("reacted", this.situation);
         })
         .catch((error) => {
           this.error = error.response.data.message;
@@ -95,6 +98,8 @@ export default {
         .then((response) => {
           //console.log("unliked");
           this.getLike();
+          this.situation = response.data.message;
+          this.$emit("reacted", this.situation);
         })
         .catch((error) => {
           this.error = error.response.data.message;
@@ -106,6 +111,8 @@ export default {
         .then((response) => {
           // console.log("deleted");
           this.getLike();
+          this.situation = response.data.message;
+          this.$emit("reacted", this.situation);
         })
         .catch((error) => {
           this.error = error.response.data.message;
@@ -118,6 +125,8 @@ export default {
         .then((response) => {
           // console.log("unliked");
           this.getLike();
+          this.situation = response.data.message;
+          this.$emit("reacted", this.situation);
         })
         .catch((error) => {
           this.error = error.response.data.message;
@@ -130,6 +139,8 @@ export default {
         .then((response) => {
           // console.log("liked");
           this.getLike();
+          this.situation = response.data.message;
+          this.$emit("reacted", this.situation);
         })
         .catch((error) => {
           this.error = error.response.data.message;

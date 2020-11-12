@@ -82,9 +82,13 @@
             >{{ post.comment.length }}</span
           >
         </small>
-        <!-- <like :id="post.id" :admin="user"></like> -->
+        <like @reacted="updateCount" :id="post.id" :admin="user"></like>
 
-        <!-- <comment :post="post" :admin="user"></comment> -->
+        <comment
+          @NewcommentUpdate="newComment"
+          :post="post"
+          :admin="user"
+        ></comment>
       </div>
 
       <div v-else>
@@ -160,9 +164,13 @@
             >{{ post.comment.length }}</span
           >
         </small>
-        <like :id="post.id" :admin="user"></like> -->
+        <like @reacted="updateCount" :id="post.id" :admin="user"></like>
 
-        <comment :post="post.id" :admin="user"></comment>
+        <comment
+          @NewcommentUpdate="newComment"
+          :post="post"
+          :admin="user"
+        ></comment>
       </div>
       <div
         class="modal fade"
@@ -256,6 +264,7 @@
 import Like from "./like.vue";
 import comment from "./CommentSection.vue";
 import { Form, HasError, AlertError } from "vform";
+import { bus } from "../app";
 export default {
   props: ["user"],
   components: {
@@ -362,6 +371,17 @@ export default {
         }
       });
     },
+    updateCount(situation) {
+      this.getPosts();
+    },
+    newComment(commentStatus) {
+      this.getPosts();
+    },
+  },
+  created() {
+    bus.$on("postUpload", (data) => {
+      this.getPosts();
+    });
   },
 };
 </script>
