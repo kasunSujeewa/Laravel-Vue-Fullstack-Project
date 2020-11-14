@@ -2190,6 +2190,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -2391,6 +2392,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["user3"],
   data: function data() {
@@ -2455,6 +2457,8 @@ __webpack_require__.r(__webpack_exports__);
       this.confirmDetails.friend_id = friendRQ.user_id;
       axios.post("/addfriend", this.confirmDetails).then(function (response) {
         _this4.getFriends();
+
+        _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit("postUpload", "uploaded");
       })["catch"](function (error) {
         _this4.error = error.response.data.message;
       });
@@ -2463,8 +2467,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios["delete"]("/delFriendRq/" + friendRQ.id).then(function (response) {
-        console.log("deleted");
-
         _this5.getFriends();
       })["catch"](function (error) {
         _this5.error = error.response.data.message;
@@ -2477,6 +2479,8 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.delFriend);
       axios.post("/delFriend", this.delFriend).then(function (response) {
         _this6.getFriends();
+
+        _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit("postUpload", "uploaded");
       });
     }
   }

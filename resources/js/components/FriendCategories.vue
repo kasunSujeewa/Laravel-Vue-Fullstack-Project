@@ -200,6 +200,7 @@
   </div>
 </template>
 <script>
+import { bus } from "../app";
 export default {
   props: ["user3"],
   data() {
@@ -266,6 +267,7 @@ export default {
         .post("/addfriend", this.confirmDetails)
         .then((response) => {
           this.getFriends();
+          bus.$emit("postUpload", "uploaded");
         })
         .catch((error) => {
           this.error = error.response.data.message;
@@ -275,8 +277,6 @@ export default {
       axios
         .delete("/delFriendRq/" + friendRQ.id)
         .then((response) => {
-          console.log("deleted");
-
           this.getFriends();
         })
         .catch((error) => {
@@ -288,6 +288,7 @@ export default {
       console.log(this.delFriend);
       axios.post("/delFriend", this.delFriend).then((response) => {
         this.getFriends();
+        bus.$emit("postUpload", "uploaded");
       });
     },
   },

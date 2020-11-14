@@ -32,11 +32,16 @@ class PostController extends Controller
     }
     public function index()
     {
-        $post = Post::with(['likes', 'dislikes', 'user', 'comment'])->orderBy('created_at', 'desc')->get();
+        if ((Auth::user()->friends->count()) > 0) {
+            $collection = collect(Auth::user()->friends->pluck('friend_id'));
+            $collection->push(Auth::user()->id);
 
-
-
-        return response()->json(['post' => $post]);
+            $post = Post::with(['likes', 'dislikes', 'user', 'comment'])->whereIn('user_id', $collection)->orderBy('created_at', 'desc')->get();
+            return response()->json(['post' => $post]);
+        } else {
+            $post = Post::with(['likes', 'dislikes', 'user', 'comment'])->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+            return response()->json(['post' => $post]);
+        }
     }
     public function Userindex($id)
     {
