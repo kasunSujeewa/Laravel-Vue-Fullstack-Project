@@ -29,6 +29,7 @@ Vue.component('post-add', require('./components/PostAddingHeader.vue').default);
 Vue.component('posts', require('./components/Posts.vue').default);
 Vue.component('own-posts', require('./components/ownPost.vue').default);
 Vue.component('single-post', require('./components/SinglePost.vue').default);
+Vue.component('friend', require('./components/FriendCategories.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -38,4 +39,5 @@ Vue.component('single-post', require('./components/SinglePost.vue').default);
 export const bus = new Vue();
 const app = new Vue({
     el: '#app',
+
 });

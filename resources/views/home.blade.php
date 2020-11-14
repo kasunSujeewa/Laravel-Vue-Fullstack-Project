@@ -7,7 +7,8 @@
             <post-add :user="{{auth()->user()}}"></post-add>
             <posts :user="{{auth()->user()}}"></posts>
         </div>
-
+        <friend :user3="{{auth()->user()}}"></friend>
     </div>
+
 </div>
 @endsection

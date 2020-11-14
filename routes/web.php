@@ -39,3 +39,10 @@ Route::post('/comment/{id}', 'CommentController@store');
 Route::delete('/comment/{id}', 'CommentController@remove');
 Route::post('/commentUp/{id}', 'CommentController@update');
 Route::get('/comment/{id}', 'CommentController@index');
+Route::post('/sendFriendRequest', 'FriendRequestController@store');
+
+Route::get('/friends', 'FriendRequestController@index');
+Route::delete('/delFriendRq/{id}', 'FriendRequestController@remove');
+Route::delete('/delFriendRqsend/{id}', 'FriendRequestController@destroy');
+Route::post('/addfriend', 'FriendRequestController@confirm');
+Route::post('/delFriend', 'FriendsController@removefr');

@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
+
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,5 +58,17 @@ class User extends Authenticatable
     public function comment()
     {
         return $this->hasMany('App\Comment');
+    }
+    public function friendRequestsSend()
+    {
+        return $this->hasMany('App\FriendRequest', 'user_id')->where('status', false);
+    }
+    public function friendRequestsReceive()
+    {
+        return $this->hasMany('App\FriendRequest', 'friend_id')->where('status', false);
+    }
+    public function friends()
+    {
+        return $this->hasMany('App\Friends', 'user_id');
     }
 }
