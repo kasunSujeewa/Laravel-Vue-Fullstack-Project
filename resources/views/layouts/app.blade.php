@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SUSL</title>
+    <title>SUSL Social</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,6 +25,14 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+             <img
+          
+          src="storage/default/logo/SUSL.png"
+          class="m-2"
+          width="30px"
+          height="30px"
+          alt=""
+        />
                 <a class="navbar-brand" href="{{ url('/') }}">
                     SUSL
                 </a>
